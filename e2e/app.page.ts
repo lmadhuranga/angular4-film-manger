@@ -13,20 +13,20 @@ export class ContactPage {
   }
 
   getHeaderText() {
-    return element(by.css('app-list-contacts md-toolbar-row span')).getText();
+    return element(by.css('app-list-films md-toolbar-row span')).getText();
   }
 
   //TODO:: optimize passing parameters
   getAddContactHeaderText() {
-    return element(by.css('app-create-contact md-toolbar-row .title-margin_left')).getText();
+    return element(by.css('app-add-film md-toolbar-row .title-margin_left')).getText();
   }
 
-  contactAddBtn() {
-    return element(by.css('app-contacts .btn-contact_add'));
+  filmAddBtn() {
+    return element(by.css('app-films .btn-film_add'));
   }
 
   saveBtn() {
-    return element(by.css('button.create-contact-submit.mat-raised-button'));
+    return element(by.css('button.add-film-submit.mat-raised-button'));
   }
 
   checkRequred(fieldName: string, fieldValue: string) {
@@ -51,7 +51,7 @@ export class ContactPage {
   }
 
   getContactList() {
-    return element.all(by.css('app-list-contacts md-list .each-contact'));
+    return element.all(by.css('app-list-films md-list .each-film'));
   }
 
 }

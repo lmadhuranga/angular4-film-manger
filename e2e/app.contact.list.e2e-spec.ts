@@ -13,7 +13,7 @@ describe('ContactList Cmp', () => {
     expect(page.getHeaderText()).toContain('Contact Manager');
   });
 
-  it('should be avaialbel add contact btn', () => { 
-    expect(page.contactAddBtn()).toBeDefined; 
+  it('should be avaialbel add film btn', () => {
+    expect(page.filmAddBtn()).toBeDefined;
   });
 });

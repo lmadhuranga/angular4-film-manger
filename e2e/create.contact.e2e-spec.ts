@@ -1,20 +1,20 @@
 import {ContactPage} from './app.page';
 import {browser, element, by} from 'protractor';
-import configs from '../src/app/config/contacts';
-import {Contact} from "../src/app/Components/contacts/contact";
+import configs from '../src/app/config/films';
+import {Contact} from "../src/app/Components/films/film";
 
-describe('create-contact component', () => {
+describe('create-film component', () => {
   let page: ContactPage;
-  let contact: Contact;
+  let film: Contact;
   beforeEach(() => {
     page = new ContactPage();
     page.navigateTo();
-    // Open contact page
-    page.contactAddBtn().click();
-    this.contact = configs.contacts[0];
+    // Open film page
+    page.filmAddBtn().click();
+    this.film = configs.films[0];
   });
 
-  it('should be create contact form should load', () => {
+  it('should be create film form should load', () => {
     // Some browsers are slow to load
     browser.driver.sleep(100);
     expect(page.getAddContactHeaderText()).toContain('Add New Contact');
@@ -34,15 +34,15 @@ describe('create-contact component', () => {
   });
 
   it('should be form should be filed and save button availebe', () => {
-    page.fillFormData(this.contact);
+    page.fillFormData(this.film);
     expect(page.saveBtn()).toBeDefined();
   });
 
-  it('should be contact add and check contact list is updated', () => {
-    page.fillFormData(this.contact);
+  it('should be film add and check film list is updated', () => {
+    page.fillFormData(this.film);
     page.saveBtn().click();
     browser.sleep(10);
     expect(page.getContactList().count()).not.toEqual(0);
-    expect(page.getContactList().last().$('h4').getText()).toEqual(`${this.contact.first_name} ${this.contact.last_name}`);
+    expect(page.getContactList().last().$('h4').getText()).toEqual(`${this.film.first_name} ${this.film.last_name}`);
   });
 });

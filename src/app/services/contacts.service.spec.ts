@@ -3,19 +3,19 @@ import {BaseRequestOptions, ConnectionBackend, Http, RequestOptions, Response, R
 import {MockBackend} from '@angular/http/testing';
 import {Observable} from 'rxjs';
 
-import {ContactsService} from './contacts.service';
-import {Contact} from '../Components/contacts/contact';
-import configs from '../config/contacts';
+import {FilmsService} from './films.service';
+import {Film} from '../Components/films/film';
+import configs from '../config/films';
 import {log} from "util";
 
-let MockContactesArray: Array<Contact> = configs.contacts
+let MockFilmesArray: Array<Film> = configs.films
 
 let mockBackend: MockBackend;
-let contactsService: ContactsService;
+let filmsService: FilmsService;
 let setup = (httpMock) => {
   TestBed.configureTestingModule({
     providers: [
-      ContactsService,
+      FilmsService,
       MockBackend,
       BaseRequestOptions,
       {
@@ -28,23 +28,23 @@ let setup = (httpMock) => {
   inject([MockBackend, Http],
     (mb: MockBackend, http: Http) => {
       mockBackend = mb;
-      contactsService = new ContactsService(http);
+      filmsService = new FilmsService(http);
     })();
 };
 
-describe('ContactsService', () => {
+describe('FilmsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [],
-      providers: [ContactsService, ConnectionBackend, Http]
+      providers: [FilmsService, ConnectionBackend, Http]
     });
   });
 
   it('should return the Contacs array', (done) => {
     setup(MockSuccessGetContacsHttp);
-    contactsService.getContacts().then((contacts:any) => {
-      expect(contacts).toEqual(MockContactesArray);
+    filmsService.getFilms().then((films:any) => {
+      expect(films).toEqual(MockFilmesArray);
       done();
     });
   });
@@ -52,8 +52,8 @@ describe('ContactsService', () => {
   it('should return the hero based on passed in id from the promise when it succeeds', (done) => {
     setup(MockSuccessGetContacsHttp);
 
-    contactsService.getContact(MockContactesArray[0]).then((contact) => {
-      expect(contact).toEqual(MockContactesArray[0]);
+    filmsService.getFilm(MockFilmesArray[0]).then((film) => {
+      expect(film).toEqual(MockFilmesArray[0]);
       done();
     });
   });
@@ -66,6 +66,6 @@ class MockSuccessGetContacsHttp extends Http {
   }
 
   get() {
-    return Observable.from([new Response(new ResponseOptions({body: MockContactesArray}))]);
+    return Observable.from([new Response(new ResponseOptions({body: MockFilmesArray}))]);
   }
 }
