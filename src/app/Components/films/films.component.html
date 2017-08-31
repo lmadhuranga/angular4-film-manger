@@ -1,0 +1,2 @@
+<app-list-films *ngIf="isListView"  (destroyFilmEvent)="destroy($event)" (changeViewEvent)="toggleView($event)" [films]="films"></app-list-films>
+<app-create-film *ngIf="!isListView" (createNewFilmEvent)="create($event)" (changeViewEvent)="toggleView($event)"></app-create-film>

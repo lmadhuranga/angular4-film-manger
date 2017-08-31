@@ -1,0 +1,17 @@
+<md-toolbar color="primary">
+    <span>Contact Manager</span>
+</md-toolbar>
+<a md-fab class="btn-film_add" (click)="changeView($event)"><i class="material-icons">person_add</i></a>
+<md-list>
+  <md-list-item class="each-film" *ngFor="let film of films">
+    <img md-list-avatar src="https://robohash.org/{{film.first_name}}">
+    <h4 md-line>{{film.first_name}} {{film.last_name}}</h4>
+    <p md-line class="demo-2"> 
+      <button md-button>{{film.email}}</button>
+      <button md-button>{{film.phone}}</button>
+    </p>
+    <i class="material-icons orange600" (click)="destroy(film)">delete</i>
+  </md-list-item>
+  <md-divider></md-divider>
+</md-list>
+
