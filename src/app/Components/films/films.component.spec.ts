@@ -3,26 +3,27 @@ import {HttpModule} from '@angular/http';
 import {DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 
-import {ContactsService} from '../../services/films.service';
-import {ContactsComponent} from './films.component';
-import {Contact} from './film';
+import {FilmsService} from '../../services/films.service';
+import {FilmsComponent} from './films.component';
+import {Film} from './film';
 import configs from '../../config/films';
 
-let MockContactesArray: Array<Contact> = configs.films;
 
 
-describe('ContactsComponent', () => {
-  let component: ContactsComponent;
-  let fixture: ComponentFixture<ContactsComponent>;
-  let filmsService: ContactsService;
+
+describe('FilmsComponent', () => {
+  let component: FilmsComponent;
+  let fixture: ComponentFixture<FilmsComponent>;
+  let filmsService: FilmsService;
   let de: DebugElement;
-  let films: Array<Contact>;
+  let films: Array<Film>;
+  const MockFilmsArray: Array<Film> = configs.films;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpModule, ReactiveFormsModule, FormsModule],
-      declarations: [ContactsComponent],
+      declarations: [FilmsComponent],
       providers: [
-        ContactsService,
+        FilmsService,
       ],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -30,22 +31,22 @@ describe('ContactsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ContactsComponent);
+    fixture = TestBed.createComponent(FilmsComponent);
     component = fixture.componentInstance;
-    filmsService = TestBed.get(ContactsService);
-    spyOn(filmsService, 'getContacts').and.callFake(() => {
+    filmsService = TestBed.get(FilmsService);
+    spyOn(filmsService, 'getFilms').and.callFake(() => {
       return {
         then: function (callback) {
-          return callback(MockContactesArray);
+          return callback(MockFilmsArray);
         }
       };
     });
 
     spyOn(filmsService, 'create').and.callFake(() => {
-      return Promise.resolve(MockContactesArray[0]);
+      return Promise.resolve(MockFilmsArray[0]);
     });
 
-    //fixture.detectChanges();
+    // fixture.detectChanges();
 
   });
 
@@ -53,17 +54,17 @@ describe('ContactsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should be called getContacts', () => {
+  it('should be called getFilms', () => {
     expect(component.films.length).toBe(0);
-    component.getContacts();
+    component.getFilms();
     expect(component.films.length).toBe(5);
 
   });
 
   it('should be called to film save', async(() => {
-    expect(component.create(MockContactesArray[0])).toBe(true);
+    expect(component.create(MockFilmsArray[0])).toBe(true);
     expect(filmsService.create).toHaveBeenCalledTimes(1);
-    expect(filmsService.create).toHaveBeenCalledWith(MockContactesArray[0]);
+    expect(filmsService.create).toHaveBeenCalledWith(MockFilmsArray[0]);
   }));
 
 
